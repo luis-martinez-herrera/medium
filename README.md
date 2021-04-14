@@ -1,2 +1,1 @@
-# medium
-Repositorio de los ejemplos usados en https://medium.com/@luismartinezh
+# Repositorio de los ejemplos usados en https://medium.com/@luismartinezh
