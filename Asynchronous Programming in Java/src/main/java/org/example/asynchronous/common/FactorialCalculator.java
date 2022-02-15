@@ -1,4 +1,4 @@
-package org.example.asynchronous;
+package org.example.asynchronous.common;
 
 public interface FactorialCalculator {
 

@@ -1,10 +1,12 @@
-package org.example.asynchronous;
+package org.example.asynchronous.standalone;
 
-public class CustomThread extends Thread{
+import org.example.asynchronous.common.FactorialCalculator;
+
+public class CustomRunnable implements Runnable{
 
     private final FactorialCalculator factorialCalculator;
 
-    public CustomThread(FactorialCalculator factorialCalculator) {
+    public CustomRunnable(FactorialCalculator factorialCalculator) {
         this.factorialCalculator = factorialCalculator;
     }
 

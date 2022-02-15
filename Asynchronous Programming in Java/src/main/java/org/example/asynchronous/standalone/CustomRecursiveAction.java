@@ -1,4 +1,7 @@
-package org.example.asynchronous;
+package org.example.asynchronous.standalone;
+
+import org.example.asynchronous.common.FactorialCalculator;
+import org.example.asynchronous.common.FactorialCalculatorImpl;
 
 import java.util.ArrayList;
 import java.util.List;

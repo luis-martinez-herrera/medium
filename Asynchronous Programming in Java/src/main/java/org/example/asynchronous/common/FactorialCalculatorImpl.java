@@ -1,8 +1,7 @@
-package org.example.asynchronous;
+package org.example.asynchronous.common;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class FactorialCalculatorImpl implements FactorialCalculator {
 
@@ -17,19 +16,19 @@ public class FactorialCalculatorImpl implements FactorialCalculator {
         Instant start = Instant.now();
 
         String threadName = Thread.currentThread().getName();
-        System.out.println("Using thread: " + threadName);
+        System.out.println(start + " Using thread: " + threadName);
 
         int factorial = calculateFactorial(number);
-        System.out.println(threadName + " - Factorial of " + number + " is: " + factorial);
+        System.out.println(Instant.now() + " " + threadName + " - Factorial of " + number + " is: " + factorial);
 
         Instant end = Instant.now();
-        System.out.println( threadName + " - Total execution time: " + Duration.between(start, end).toMillis());
+        System.out.println(end + " " + threadName + " - Total execution time: " + Duration.between(start, end).toNanos());
 
         return factorial;
     }
 
     private int calculateFactorial (int n) throws InterruptedException {
-        Thread.sleep( ThreadLocalRandom.current().nextInt(200, 1000));
+        Thread.sleep( 900);
 
         if(n == 0) {
             return 1;
