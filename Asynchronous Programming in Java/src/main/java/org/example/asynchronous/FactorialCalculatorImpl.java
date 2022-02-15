@@ -13,26 +13,23 @@ public class FactorialCalculatorImpl implements FactorialCalculator {
     }
 
     @Override
-    public void calculate() {
+    public int calculate() throws InterruptedException{
         Instant start = Instant.now();
 
         String threadName = Thread.currentThread().getName();
+        System.out.println("Using thread: " + threadName);
 
-        System.out.println("Starting thread: " + threadName);
-        try {
-            System.out.println( threadName + " - Factorial of " + number + " is: " + calculateFactorial(number));
-        }
-        catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        int factorial = calculateFactorial(number);
+        System.out.println(threadName + " - Factorial of " + number + " is: " + factorial);
 
         Instant end = Instant.now();
-
         System.out.println( threadName + " - Total execution time: " + Duration.between(start, end).toMillis());
+
+        return factorial;
     }
 
     private int calculateFactorial (int n) throws InterruptedException {
-        Thread.sleep( ThreadLocalRandom.current().nextInt(500, 1000));
+        Thread.sleep( ThreadLocalRandom.current().nextInt(200, 1000));
 
         if(n == 0) {
             return 1;

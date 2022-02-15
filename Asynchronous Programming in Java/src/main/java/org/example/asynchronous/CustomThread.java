@@ -10,6 +10,11 @@ public class CustomThread extends Thread{
 
     @Override
     public void run () {
-        factorialCalculator.calculate();
+        try {
+            factorialCalculator.calculate();
+        }
+        catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
