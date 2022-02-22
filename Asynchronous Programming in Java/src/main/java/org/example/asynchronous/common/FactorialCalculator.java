@@ -2,5 +2,5 @@ package org.example.asynchronous.common;
 
 public interface FactorialCalculator {
 
-    int calculate() throws InterruptedException;
+    int calculate(int number) throws InterruptedException;
 }

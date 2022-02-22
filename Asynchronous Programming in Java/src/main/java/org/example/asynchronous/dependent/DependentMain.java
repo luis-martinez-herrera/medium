@@ -3,10 +3,7 @@ package org.example.asynchronous.dependent;
 import org.example.asynchronous.common.FactorialCalculator;
 import org.example.asynchronous.common.FactorialCalculatorImpl;
 
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
 
 public class DependentMain {
     public static void main(String[] args) {
@@ -17,12 +14,11 @@ public class DependentMain {
     }
 
     private void runWithExecutorService() {
-        FactorialCalculator factorialCalculator1 = new FactorialCalculatorImpl(6);
-        FactorialCalculator factorialCalculator2 = new FactorialCalculatorImpl(5);
+        FactorialCalculator factorialCalculator = new FactorialCalculatorImpl();
 
         ExecutorService executor = Executors.newFixedThreadPool(2);
-        Future<Integer> future1 = executor.submit(factorialCalculator1::calculate);
-        Future<Integer> future2 =executor.submit(factorialCalculator2::calculate);
+        Future<Integer> future1 = executor.submit(() -> factorialCalculator.calculate(5));
+        Future<Integer> future2 = executor.submit(() -> factorialCalculator.calculate(5));
 
         while (true){
             if (future1.isDone() && future2.isDone()){
@@ -39,4 +35,11 @@ public class DependentMain {
 
         executor.shutdown();
     }
+
+//    private void runWithCompletableFuture (){
+//        FactorialCalculator factorialCalculator = new FactorialCalculatorImpl();
+//        CompletableFuture<Integer> completableFuture = CompletableFuture.supplyAsync(() -> {
+//            return factorialCalculator.calculate(5);
+//        });
+//    }
 }

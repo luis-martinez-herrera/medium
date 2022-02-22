@@ -1,41 +1,26 @@
 package org.example.asynchronous.standalone;
 
-import org.example.asynchronous.common.FactorialCalculator;
-import org.example.asynchronous.common.FactorialCalculatorImpl;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ForkJoinTask;
-import java.util.concurrent.RecursiveAction;
 
-public class CustomRecursiveAction extends RecursiveAction {
+public class CustomRecursiveAction extends AbstractRecursiveAction {
 
-    private final boolean isTask;
-
-    public CustomRecursiveAction(boolean isTask) {
-        this.isTask = isTask;
+    public CustomRecursiveAction() {
+        super(false);
     }
 
     @Override
     protected void compute() {
-        if (isTask) {
-            FactorialCalculator factorialCalculator = new FactorialCalculatorImpl(6);
-            try {
-                factorialCalculator.calculate();
-            }
-            catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        else {
+        if (!super.isTask) {
             ForkJoinTask.invokeAll(createSubtasks());
         }
     }
 
-    private List<CustomRecursiveAction> createSubtasks() {
-        List<CustomRecursiveAction> subtasks = new ArrayList<>();
-        subtasks.add(new CustomRecursiveAction(true));
-        subtasks.add(new CustomRecursiveAction(true));
+    private List<CustomRecursiveTask> createSubtasks() {
+        List<CustomRecursiveTask> subtasks = new ArrayList<>();
+        subtasks.add(new CustomRecursiveTask());
+        subtasks.add(new CustomRecursiveTask());
         return subtasks;
     }
 }

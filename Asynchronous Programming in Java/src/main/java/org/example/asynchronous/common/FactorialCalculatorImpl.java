@@ -5,14 +5,8 @@ import java.time.Instant;
 
 public class FactorialCalculatorImpl implements FactorialCalculator {
 
-    private final int number;
-
-    public FactorialCalculatorImpl(int number) {
-        this.number = number;
-    }
-
     @Override
-    public int calculate() throws InterruptedException{
+    public int calculate(int number) throws InterruptedException{
         Instant start = Instant.now();
 
         String threadName = Thread.currentThread().getName();
@@ -22,7 +16,7 @@ public class FactorialCalculatorImpl implements FactorialCalculator {
         System.out.println(Instant.now() + " " + threadName + " - Factorial of " + number + " is: " + factorial);
 
         Instant end = Instant.now();
-        System.out.println(end + " " + threadName + " - Total execution time: " + Duration.between(start, end).toNanos());
+        System.out.println(end + " " + threadName + " - Total execution time: " + Duration.between(start, end).toMillis());
 
         return factorial;
     }

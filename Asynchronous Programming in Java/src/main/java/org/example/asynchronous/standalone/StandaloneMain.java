@@ -15,31 +15,24 @@ public class StandaloneMain {
         StandaloneMain standaloneMain = new StandaloneMain();
 //        standaloneMain.runWithThread();
 //        standaloneMain.runWithRunnable();
-        standaloneMain.runWithExecutorService();
-//        standaloneMain.runWithCustomForkJoin();
+//        standaloneMain.runWithExecutorService();
+        standaloneMain.runWithCustomForkJoin();
     }
 
     private void runWithRunnable() {
-        FactorialCalculator factorialCalculator = new FactorialCalculatorImpl(6);
-
-        CustomRunnable customRunnable = new CustomRunnable(factorialCalculator);
+        CustomRunnable customRunnable = new CustomRunnable(5);
         Thread newThread = new Thread (customRunnable);
         newThread.start();
     }
 
     private void runWithThread() {
-        FactorialCalculator factorialCalculator = new FactorialCalculatorImpl(6);
-
-        CustomThread customThread = new CustomThread(factorialCalculator);
+        CustomThread customThread = new CustomThread(5);
         customThread.start();
     }
 
     private void runWithExecutorService() {
-        FactorialCalculator factorialCalculator1 = new FactorialCalculatorImpl(6);
-        FactorialCalculator factorialCalculator2 = new FactorialCalculatorImpl(6);
-
-        CustomRunnable customRunnable1 = new CustomRunnable(factorialCalculator1);
-        CustomRunnable customRunnable2 = new CustomRunnable(factorialCalculator2);
+        CustomRunnable customRunnable1 = new CustomRunnable(5);
+        CustomRunnable customRunnable2 = new CustomRunnable(5);
 
         ExecutorService executor = Executors.newFixedThreadPool(2);
         executor.submit(customRunnable1);
@@ -50,7 +43,7 @@ public class StandaloneMain {
 
     private void runWithCustomForkJoin (){
         ForkJoinPool commonPool = ForkJoinPool.commonPool();
-        CustomRecursiveAction customRecursiveAction = new CustomRecursiveAction(false);
+        CustomRecursiveAction customRecursiveAction = new CustomRecursiveAction();
         commonPool.invoke(customRecursiveAction);
     }
 }
