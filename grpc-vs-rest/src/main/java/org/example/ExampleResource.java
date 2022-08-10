@@ -18,6 +18,6 @@ public class ExampleResource {
     public String hello(HelloRequestDto helloRequestDto) {
         int count = counter.incrementAndGet();
 
-        return "{\"message\": \"Hello " + helloRequestDto.getName() + "\",\"count\": " + count + "}";
+        return "{\"message\": \"Hello " + helloRequestDto.getName()+ helloRequestDto.getName444() + "\",\"count\": " + count + "}";
     }
 }

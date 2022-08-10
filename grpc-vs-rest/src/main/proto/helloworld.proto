@@ -45,6 +45,30 @@ service Greeter {
 // The request message containing the user's name.
 message HelloRequest {
     string name = 1;
+    string name1 = 2;
+    string name2 = 3;
+    string name3 = 4;
+    string name4 = 5;
+    string name5 = 6;
+    string name6 = 7;
+    string name7 = 8;
+    string name8 = 9;
+    string name9 = 10;
+    string name0 = 11;
+    string name11 = 12;
+    string name22 = 13;
+    string name33 = 14;
+    string name44 = 15;
+    string name55 = 16;
+    string name66 = 17;
+    string name77 = 18;
+    string name88 = 19;
+    string name99 = 20;
+    string name00 = 21;
+    string name111 = 22;
+    string name222 = 23;
+    string name333 = 24;
+    string name444 = 25;
 }
 
 // The response message containing the greetings
