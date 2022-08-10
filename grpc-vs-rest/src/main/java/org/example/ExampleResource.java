@@ -12,10 +12,10 @@ public class ExampleResource {
     AtomicInteger counter = new AtomicInteger();
 
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
     public String hello() {
         int count = counter.incrementAndGet();
 
-        return "Hello from RESTEasy Reactive, call number: " + count;
+        return "{\"message\": \"Hello \",\"count\": " + count + "}";
     }
 }
