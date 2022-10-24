@@ -1,8 +1,11 @@
 package org.example.asynchronous.standalone;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.ForkJoinTask;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -41,8 +44,13 @@ public class StandaloneMain {
   }
 
   private void runWithCustomForkJoin() {
-    ForkJoinPool commonPool = ForkJoinPool.commonPool();
-    CustomRecursiveAction customRecursiveAction = new CustomRecursiveAction();
-    commonPool.invoke(customRecursiveAction);
+    CustomRecursiveAction customRecursiveAction1 = new CustomRecursiveAction(10);
+    CustomRecursiveAction customRecursiveAction2 = new CustomRecursiveAction(10);
+
+    List<CustomRecursiveAction> subtasks = new ArrayList<>();
+    subtasks.add(customRecursiveAction1);
+    subtasks.add(customRecursiveAction2);
+
+    ForkJoinTask.invokeAll(subtasks);
   }
 }
