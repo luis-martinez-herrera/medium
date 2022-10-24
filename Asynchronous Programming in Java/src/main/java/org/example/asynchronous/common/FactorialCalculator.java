@@ -2,5 +2,5 @@ package org.example.asynchronous.common;
 
 public interface FactorialCalculator {
 
-  int calculate(int number);
+  long calculate(int number);
 }

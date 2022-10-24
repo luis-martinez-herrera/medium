@@ -26,4 +26,10 @@ class FactorialCalculatorImplTest {
   void calculate0() {
     assertEquals(1, factorialCalculator.calculate(0));
   }
+
+  @Test
+  @DisplayName("Calculate Factorial of 14")
+  void calculate14() {
+    assertEquals(87178291200L, factorialCalculator.calculate(14));
+  }
 }

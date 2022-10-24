@@ -8,23 +8,25 @@ import lombok.extern.slf4j.Slf4j;
 public class FactorialCalculatorImpl implements FactorialCalculator {
 
   @Override
-  public int calculate(int number) {
+  public long calculate(int number) {
     Instant start = Instant.now();
 
     String threadName = Thread.currentThread().getName();
     log.info("Start using thread: {}", threadName);
 
-    int factorial = calculateFactorial(number);
-    log.info(Instant.now() + " " + threadName + " - Factorial of " + number + " is: " + factorial);
+    long factorial = calculateFactorial(number);
+    log.info("Factorial of {} is: {}", number, factorial);
 
     Instant end = Instant.now();
-    log.info("Finish using thread: {}. Total execution time: {}", threadName,
+    log.info(
+        "Finish using thread: {}. Total execution time: {}",
+        threadName,
         Duration.between(start, end).toMillis());
 
     return factorial;
   }
 
-  private int calculateFactorial(int n) {
+  private long calculateFactorial(int n) {
     if (n == 0) {
       return 1;
     }

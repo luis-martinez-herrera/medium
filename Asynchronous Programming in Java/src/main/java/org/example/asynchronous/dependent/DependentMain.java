@@ -14,26 +14,26 @@ public class DependentMain {
     }
 
     private void runWithExecutorService() {
-        FactorialCalculator factorialCalculator = new FactorialCalculatorImpl();
-
-        ExecutorService executor = Executors.newFixedThreadPool(2);
-        Future<Integer> future1 = executor.submit(() -> factorialCalculator.calculate(5));
-        Future<Integer> future2 = executor.submit(() -> factorialCalculator.calculate(5));
-
-        while (true){
-            if (future1.isDone() && future2.isDone()){
-                break;
-            }
-        }
-
-        try {
-            System.out.println("Sum is: " + (future1.get() + future2.get()));
-        }
-        catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        executor.shutdown();
+//        FactorialCalculator factorialCalculator = new FactorialCalculatorImpl();
+//
+//        ExecutorService executor = Executors.newFixedThreadPool(2);
+//        Future<Integer> future1 = executor.submit(() -> factorialCalculator.calculate(5));
+//        Future<Integer> future2 = executor.submit(() -> factorialCalculator.calculate(5));
+//
+//        while (true){
+//            if (future1.isDone() && future2.isDone()){
+//                break;
+//            }
+//        }
+//
+//        try {
+//            System.out.println("Sum is: " + (future1.get() + future2.get()));
+//        }
+//        catch (InterruptedException | ExecutionException e) {
+//            e.printStackTrace();
+//        }
+//
+//        executor.shutdown();
     }
 
 //    private void runWithCompletableFuture (){
