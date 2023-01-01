@@ -1,49 +1,61 @@
 package org.example.asynchronous.standalone;
 
-import org.example.asynchronous.common.FactorialCalculator;
-import org.example.asynchronous.common.FactorialCalculatorImpl;
-
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.ForkJoinTask;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class StandaloneMain {
 
-    public static void main(String[] args) {
-        System.out.println("Main thread name: " + Thread.currentThread().getName());
+  private final int testNumber;
 
-        StandaloneMain standaloneMain = new StandaloneMain();
-//        standaloneMain.runWithThread();
-//        standaloneMain.runWithRunnable();
-//        standaloneMain.runWithExecutorService();
-        standaloneMain.runWithCustomForkJoin();
-    }
+  public StandaloneMain(int testNumber) {
+    this.testNumber = testNumber;
+  }
 
-    private void runWithRunnable() {
-        CustomRunnable customRunnable = new CustomRunnable(5);
-        Thread newThread = new Thread (customRunnable);
-        newThread.start();
-    }
+  public static void main(String[] args) {
+    log.info("Main thread name: {}", Thread.currentThread().getName());
 
-    private void runWithThread() {
-        CustomThread customThread = new CustomThread(5);
-        customThread.start();
-    }
+    StandaloneMain standaloneMain = new StandaloneMain(14);
+    standaloneMain.runWithThread();
+    standaloneMain.runWithRunnable();
+    standaloneMain.runWithExecutorService();
+    standaloneMain.runWithCustomForkJoin();
+  }
 
-    private void runWithExecutorService() {
-        CustomRunnable customRunnable1 = new CustomRunnable(5);
-        CustomRunnable customRunnable2 = new CustomRunnable(5);
+  private void runWithThread() {
+    CustomThread customThread = new CustomThread(this.testNumber);
+    customThread.start();
+  }
 
-        ExecutorService executor = Executors.newFixedThreadPool(2);
-        executor.submit(customRunnable1);
-        executor.submit(customRunnable2);
+  private void runWithRunnable() {
+    CustomRunnable customRunnable = new CustomRunnable(this.testNumber);
+    Thread newThread = new Thread(customRunnable);
+    newThread.start();
+  }
 
-        executor.shutdown();
-    }
+  private void runWithExecutorService() {
+    CustomRunnable customRunnable1 = new CustomRunnable(this.testNumber);
+    CustomRunnable customRunnable2 = new CustomRunnable(this.testNumber);
 
-    private void runWithCustomForkJoin (){
-        ForkJoinPool commonPool = ForkJoinPool.commonPool();
-        CustomRecursiveAction customRecursiveAction = new CustomRecursiveAction();
-        commonPool.invoke(customRecursiveAction);
-    }
+    ExecutorService executor = Executors.newFixedThreadPool(this.testNumber);
+    executor.submit(customRunnable1);
+    executor.submit(customRunnable2);
+
+    executor.shutdown();
+  }
+
+  private void runWithCustomForkJoin() {
+    CustomRecursiveAction customRecursiveAction1 = new CustomRecursiveAction(this.testNumber);
+    CustomRecursiveAction customRecursiveAction2 = new CustomRecursiveAction(this.testNumber);
+
+    List<CustomRecursiveAction> subtasks = new ArrayList<>();
+    subtasks.add(customRecursiveAction1);
+    subtasks.add(customRecursiveAction2);
+
+    ForkJoinTask.invokeAll(subtasks);
+  }
 }
