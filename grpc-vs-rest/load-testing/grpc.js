@@ -1,8 +1,8 @@
 import grpc from 'k6/net/grpc';
 import { check, sleep } from 'k6';
 export const options = {
-  vus: 1,
-  duration: '1s',
+  vus: 32,
+  duration: '60s',
 };
 
 const client = new grpc.Client();
@@ -47,7 +47,7 @@ export default () => {
   //   'status is OK': (r) => r && r.status === grpc.StatusOK,
   // });
 
-  console.log(JSON.stringify(response.message));
+  // console.log(JSON.stringify(response.message));
 
   // client.close();
   sleep(1);
