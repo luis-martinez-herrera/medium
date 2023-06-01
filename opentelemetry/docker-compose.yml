@@ -1,0 +1,35 @@
+version: "4.0"
+
+services:
+  product-service:
+    image: opentelemetry-primary
+    ports:
+      - "8080:8080"
+    depends_on:
+      - price-service
+    environment:
+      - com.example.opentelemetry.secondary.url=http://price-service:9090/price
+      - spring.sleuth.otel.exporter.otlp.endpoint=http://collector:4317
+
+  price-service:
+    image: opentelemetry-secondary
+    ports:
+      - "9090:9090"
+    environment:
+      - spring.sleuth.otel.exporter.otlp.endpoint=http://collector:4317
+
+  collector:
+    image: otel/opentelemetry-collector:0.78.0
+    command: [ "--config=/etc/otel-collector-config.yml" ]
+    volumes:
+      - ./collector/otel-config.yml:/etc/otel-collector-config.yml
+    ports:
+      - "4317:4317"
+    depends_on:
+      - jaeger-service
+
+  jaeger-service:
+    image: jaegertracing/all-in-one:latest
+    ports:
+      - "16686:16686"
+      - "14250"
